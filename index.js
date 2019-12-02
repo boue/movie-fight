@@ -2,7 +2,6 @@ const fetchData = async searchTerm => {
     const response = await axios.get('http://www.omdbapi.com/', {
         //sticks these as query strings
         params: {
-            apikey: '',
             s: searchTerm
         }
     });
@@ -13,6 +12,17 @@ const fetchData = async searchTerm => {
 
     return response.data.Search
 };
+
+createAutoComplete({
+    root: document.querySelector('.autocomplete'),
+    renderOption: (movie) => {
+        const imgSrc = movie.Poster === 'N/A' ? '' : movie.Poster
+        return `
+            <img src="${imgSrc}" />
+            ${movie.Title} (${movie.Year})
+        `
+    }
+})
 
 const onMovieSelect = async (movie) => {
     const response = await axios.get('http://www.omdbapi.com/', {
