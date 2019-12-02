@@ -2,6 +2,7 @@ const fetchData = async searchTerm => {
     const response = await axios.get('http://www.omdbapi.com/', {
         //sticks these as query strings
         params: {
+            apikey: '',
             s: searchTerm
         }
     });
